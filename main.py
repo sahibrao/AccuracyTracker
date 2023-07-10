@@ -52,7 +52,22 @@ class Target:
         dis = math.sqrt((self.x - x)**2 + (self.y-y)**2)
         return dis <= self.size
 
+class Button:
+    def __init__(self, x, y, width, height, buttonText='Button', onclickFunction=None, onePress=False):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.onclickFunction = onclickFunction
+        self.onePress = onePress
+        self.alreadyPressed = False
 
+        self.fillColors = {
+            'normal': '#ffffff',
+            'hover': '#666666',
+            'pressed': '#333333',
+        }
+        
 def format_time(secs):
     milliseconds = math.floor(int(secs*1000%1000)/100)
     seconds = int(round(secs%60, 1))
@@ -94,6 +109,7 @@ def end_screen(win, elapsed_time, targets_pressed, clicks):
     win.blit(hits_label, (get_middle(hits_label),275))
     win.blit(accuracy_label, (get_middle(accuracy_label),375))
     win.blit(restart_label, (get_middle(restart_label),475))
+    Button(30, 30, 400, 100, 'Button One (onePress)', myFunction)
 
     
     pygame.display.update()
@@ -104,7 +120,10 @@ def end_screen(win, elapsed_time, targets_pressed, clicks):
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN:
                 quit()
             
+def myFunction():
+    print("yay")
     
+
 def get_middle(surface):
     return WIDTH / 2 - surface.get_width()/2
 
